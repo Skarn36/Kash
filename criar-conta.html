@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KASH — Criar Conta</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body class="login-body">
+    <main class="login">
+      <!-- LADO ESQUERDO -->
+      <section class="login-left">
+        <div class="login-brand">
+          <div class="login-logo">KASH</div>
+          <div class="login-sub">FINANCIAL ECOSYSTEM</div>
+        </div>
+
+        <div class="login-secure">
+          <span class="login-shield">🛡️</span>
+          <span>SECURE SSL ENCRYPTION</span>
+        </div>
+      </section>
+
+      <!-- LADO DIREITO -->
+      <section class="login-right">
+        <div class="login-card">
+          <h1>Criar Conta</h1>
+          <p>Preencha os dados abaixo para criar sua conta</p>
+
+          <form class="login-form" onsubmit="event.preventDefault();">
+            <label class="login-label">NOME DE USUÁRIO</label>
+            <div class="login-field">
+              <input type="text" placeholder="Seu nome" />
+              <span class="login-ico">👤</span>
+            </div>
+
+            <label class="login-label">E-MAIL</label>
+            <div class="login-field">
+              <input type="email" placeholder="seu.email@exemplo.com" />
+              <span class="login-ico">✉️</span>
+            </div>
+
+            <label class="login-label">SENHA</label>
+            <div class="login-field">
+              <input type="password" placeholder="********" />
+              <span class="login-ico">🔒</span>
+            </div>
+
+            <label class="login-label">CONFIRMAR SENHA</label>
+            <div class="login-field">
+              <input type="password" placeholder="********" />
+              <span class="login-ico">🔒</span>
+            </div>
+
+            <label class="login-label">Telefone</label>
+            <div class="login-field">
+              <input type="tel" placeholder="55 9999-9999" />
+              <span class="login-ico">📞</span>
+            </div>
+
+            <button class="login-btn" type="submit">
+              CRIAR CONTA
+            </button>
+
+            <div class="login-create">
+              <span>Já possui conta?</span>
+              <a href="login.html">Entrar</a>
+            </div>
+          </form>
+
+          <div class="login-divider"></div>
+
+          <div class="login-footer">
+            <div class="login-copy">
+              © 2024 KASH Financial Ecosystem. Todos os direitos reservados.
+            </div>
+            <div class="login-legal">
+              <a href="#">Termos de Uso</a>
+              <span class="sep">|</span>
+              <a href="#">Política de Privacidade</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

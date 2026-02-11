@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KASH — Perfil</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand__name">KASH</div>
+          <div class="brand__sub">Financial Ecosystem</div>
+        </div>
+
+        <nav class="nav">
+          <a class="nav__item" href="index.html">
+            <span class="nav__dot"></span>
+            <span>Dashboard</span>
+          </a>
+
+          <a class="nav__item" href="minhas-listas.html">
+            <span class="nav__icon">≡</span>
+            <span>Minhas Listas</span>
+          </a>
+
+          <a class="nav__item" href="sugestoes-kash.html">
+            <span class="nav__icon">◎</span>
+            <span>Sugestões KASH</span>
+          </a>
+
+          <a class="nav__item" href="relatorios.html">
+            <span class="nav__icon">↗</span>
+            <span>Relatórios</span>
+          </a>
+
+          <a class="nav__item" href="contas.html">
+            <span class="nav__icon">▦</span>
+            <span>Contas</span>
+          </a>
+
+          <a class="nav__item" href="#">
+            <span class="nav__icon">◴</span>
+            <span>Categorias</span>
+          </a>
+        </nav>
+
+        <div class="sidebar__fade"></div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main">
+        <section class="content">
+          <!-- Topo -->
+          <div class="pf-head">
+            <div>
+              <h1 class="pf-title">Perfil</h1>
+              <p class="pf-sub">Gerencie suas informações pessoais e preferências</p>
+            </div>
+
+            <div class="pf-actions">
+              <button class="icon-btn" aria-label="Notificações">🔔</button>
+              <button class="icon-btn" aria-label="Ajuda">?</button>
+            </div>
+          </div>
+
+          <!-- Resumo do usuário -->
+          <section class="pf-hero">
+            <div class="pf-hero__left">
+              <div class="pf-avatar top-user__avatar"></div>
+
+              <div>
+                <div class="pf-name">Ana Silva</div>
+                <div class="pf-email">ana.silva@email.com</div>
+
+                <div class="pf-badges">
+                  <span class="pf-badge is-gold">Premium</span>
+                  <span class="pf-badge">Conta verificada</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pf-hero__right">
+              <button class="pf-btn pf-btn--ghost">Alterar foto</button>
+              <button class="pf-btn">Salvar alterações</button>
+            </div>
+          </section>
+
+          <!-- Grid principal -->
+          <div class="pf-grid">
+            <!-- Dados pessoais -->
+            <section class="pf-card">
+              <div class="pf-card__head">
+                <h2 class="pf-h2">Dados Pessoais</h2>
+                <span class="pf-hint">Atualize suas informações</span>
+              </div>
+
+              <div class="pf-form">
+                <div class="pf-field">
+                  <label>Nome de usuário</label>
+                  <input type="text" value="Ana Silva" />
+                </div>
+
+                <div class="pf-field">
+                  <label>E-mail</label>
+                  <input type="email" value="ana.silva@email.com" />
+                </div>
+
+                <div class="pf-field">
+                  <label>Telefone de contato</label>
+                  <input type="tel" value="(11) 99999-0000" />
+                </div>
+
+                <div class="pf-row">
+                  <button class="pf-btn pf-btn--ghost" type="button">Cancelar</button>
+                  <button class="pf-btn" type="button">Atualizar dados</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Plano -->
+            <section class="pf-card">
+              <div class="pf-card__head">
+                <h2 class="pf-h2">Plano</h2>
+                <span class="pf-hint">Informações da assinatura</span>
+              </div>
+
+              <div class="pf-plan">
+                <div class="pf-plan__top">
+                  <div>
+                    <div class="pf-plan__name">Plano Premium</div>
+                    <div class="pf-plan__desc">Relatórios avançados, IA Kash, automações e insights.</div>
+                  </div>
+
+                  <span class="pf-pill is-gold">Ativo</span>
+                </div>
+
+                <div class="pf-plan__grid">
+                  <div class="pf-kv">
+                    <div class="pf-k">Cobrança</div>
+                    <div class="pf-v">Mensal</div>
+                  </div>
+
+                  <div class="pf-kv">
+                    <div class="pf-k">Próxima renovação</div>
+                    <div class="pf-v">15/02/2026</div>
+                  </div>
+
+                  <div class="pf-kv">
+                    <div class="pf-k">Método</div>
+                    <div class="pf-v">Cartão •••• 4021</div>
+                  </div>
+
+                  <div class="pf-kv">
+                    <div class="pf-k">Status</div>
+                    <div class="pf-v">Em dia</div>
+                  </div>
+                </div>
+
+                <div class="pf-row">
+                  <button class="pf-btn pf-btn--ghost" type="button">Gerenciar pagamento</button>
+                  <button class="pf-btn" type="button">Alterar plano</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Segurança -->
+            <section class="pf-card">
+              <div class="pf-card__head">
+                <h2 class="pf-h2">Segurança</h2>
+                <span class="pf-hint">Senha e acesso</span>
+              </div>
+
+              <div class="pf-form">
+                <div class="pf-field">
+                  <label>Senha atual</label>
+                  <input type="password" value="********" />
+                </div>
+
+                <div class="pf-field">
+                  <label>Nova senha</label>
+                  <input type="password" placeholder="Digite a nova senha" />
+                </div>
+
+                <div class="pf-field">
+                  <label>Confirmar nova senha</label>
+                  <input type="password" placeholder="Repita a nova senha" />
+                </div>
+
+                <div class="pf-row">
+                  <button class="pf-btn pf-btn--ghost" type="button">Ativar 2FA</button>
+                  <button class="pf-btn" type="button">Atualizar senha</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Preferências -->
+            <section class="pf-card">
+              <div class="pf-card__head">
+                <h2 class="pf-h2">Preferências</h2>
+                <span class="pf-hint">Configurações do app</span>
+              </div>
+
+              <div class="pf-prefs">
+                <label class="pf-toggle">
+                  <input type="checkbox" checked />
+                  <span class="pf-switch"></span>
+                  <span>Receber notificações</span>
+                </label>
+
+                <label class="pf-toggle">
+                  <input type="checkbox" />
+                  <span class="pf-switch"></span>
+                  <span>Modo compacto</span>
+                </label>
+
+                <label class="pf-toggle">
+                  <input type="checkbox" checked />
+                  <span class="pf-switch"></span>
+                  <span>Insights da IA Kash</span>
+                </label>
+
+                <div class="pf-row">
+                  <button class="pf-btn pf-btn--ghost" type="button">Restaurar padrão</button>
+                  <button class="pf-btn" type="button">Salvar preferências</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

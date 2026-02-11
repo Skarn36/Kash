@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KASH — Relatórios</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand__name">KASH</div>
+          <div class="brand__sub">Financial Ecosystem</div>
+        </div>
+
+        <nav class="nav">
+          <a class="nav__item" href="index.html">
+            <span class="nav__dot"></span>
+            <span>Dashboard</span>
+          </a>
+
+          <a class="nav__item" href="minhas-listas.html">
+            <span class="nav__icon">≡</span>
+            <span>Minhas Listas</span>
+          </a>
+
+          <a class="nav__item" href="sugestoes-kash.html">
+            <span class="nav__icon">◎</span>
+            <span>Sugestões KASH</span>
+          </a>
+
+          <a class="nav__item is-active" href="relatorios.html">
+            <span class="nav__icon">↗</span>
+            <span>Relatórios</span>
+          </a>
+
+          <a class="nav__item" href="contas.html">
+            <span class="nav__icon">▦</span>
+            <span>Contas</span>
+          </a>
+
+          <a class="nav__item" href="#">
+            <span class="nav__icon">◴</span>
+            <span>Categorias</span>
+          </a>
+        </nav>
+
+        <div class="sidebar__fade"></div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main">
+        <section class="content">
+          <!-- Cabeçalho -->
+          <div class="rep-head">
+            <div>
+              <h1 class="rep-title">Relatórios Financeiros</h1>
+              <p class="rep-sub">Análise completa das suas finanças</p>
+            </div>
+
+            <div class="rep-icons">
+              <button class="icon-btn" aria-label="Notificações">🔔</button>
+              <button class="icon-btn" aria-label="Ajuda">?</button>
+            </div>
+          </div>
+
+          <!-- Filtros -->
+          <div class="rep-filters">
+            <div class="rep-field">
+              <label>Período</label>
+              <select class="rep-select">
+                <option>Janeiro 2026</option>
+                <option>Dezembro 2025</option>
+                <option>Novembro 2025</option>
+              </select>
+            </div>
+
+            <div class="rep-field">
+              <label>Tipo de Relatório</label>
+              <select class="rep-select">
+                <option>Mensal</option>
+                <option>Semanal</option>
+                <option>Anual</option>
+              </select>
+            </div>
+
+            <div class="rep-spacer"></div>
+
+            <button class="rep-export">
+              <span class="rep-export__ico">▦</span>
+              Exportar PDF
+            </button>
+          </div>
+
+          <!-- Cards resumo -->
+          <div class="rep-cards">
+            <article class="rep-card">
+              <div class="rep-card__label">ENTRADAS TOTAIS <span class="mini-ico up">↗</span></div>
+              <div class="rep-card__value">R$ 8.450,00</div>
+              <div class="rep-card__meta up">+12% em relação ao mês anterior</div>
+            </article>
+
+            <article class="rep-card">
+              <div class="rep-card__label">SAÍDAS TOTAIS <span class="mini-ico down">↘</span></div>
+              <div class="rep-card__value">R$ 5.230,00</div>
+              <div class="rep-card__meta down">-8% em relação ao mês anterior</div>
+            </article>
+
+            <article class="rep-card rep-card--saldo">
+              <div class="rep-card__label">SALDO <span class="mini-ico coin">◒</span></div>
+              <div class="rep-card__value">R$ 3.220,00</div>
+              <div class="rep-card__meta">Taxa de economia: 38%</div>
+            </article>
+          </div>
+
+          <!-- Gráficos -->
+          <div class="rep-grid">
+            <section class="rep-panel">
+              <h2 class="rep-panel__title">Despesas por Categoria</h2>
+              <div class="rep-chart-wrap">
+                <canvas id="pieChart" height="210"></canvas>
+                <div class="rep-legend">
+                  <div class="rep-legend__title">Alimentação</div>
+                  <div class="rep-legend__item"><span class="dot d1"></span>Alimentação</div>
+                  <div class="rep-legend__item"><span class="dot d2"></span>Moradia</div>
+                  <div class="rep-legend__item"><span class="dot d3"></span>Transporte</div>
+                  <div class="rep-legend__item"><span class="dot d4"></span>Lazer</div>
+                  <div class="rep-legend__item"><span class="dot d5"></span>Saúde</div>
+                  <div class="rep-legend__pct">12%</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="rep-panel">
+              <h2 class="rep-panel__title">Fluxo de Caixa (últimos 6 meses)</h2>
+              <div class="rep-chart-wrap2">
+                <canvas id="barChart" height="240"></canvas>
+              </div>
+              <div class="rep-legend2">
+                <span><i class="sq s-in"></i> Entradas</span>
+                <span><i class="sq s-out"></i> Saídas</span>
+                <span><i class="ln"></i> Saldo Líquido</span>
+              </div>
+            </section>
+          </div>
+
+          <!-- Resumo Kash IA -->
+          <section class="rep-summary">
+            <div class="rep-summary__head">
+              <div class="rep-summary__ico">🤖</div>
+              <h2>Resumo da Kash IA</h2>
+            </div>
+
+            <div class="rep-pill">
+              <span class="rep-pill__dot">●</span>
+              Seu gasto com <b>“Moradia”</b> subiu <b>3%</b> este mês em comparação ao anterior.
+            </div>
+
+            <div class="rep-pill">
+              <span class="rep-pill__dot">●</span>
+              Você economizou <b>R$ 200</b> a mais que a média anual. Parabéns!
+            </div>
+
+            <div class="rep-pill">
+              <span class="rep-pill__dot">●</span>
+              Suas despesas com <b>“Alimentação”</b> representam <b>28%</b> do total de gastos.
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <!-- Chart.js (pra ficar igual ao print) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script>
+      // Pizza
+      const pieCtx = document.getElementById("pieChart");
+      new Chart(pieCtx, {
+        type: "doughnut",
+        data: {
+          labels: ["Alimentação", "Moradia", "Transporte", "Lazer", "Saúde"],
+          datasets: [
+            {
+              data: [28, 22, 18, 15, 17],
+              borderWidth: 0,
+              hoverOffset: 6,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          cutout: "62%",
+          plugins: {
+            legend: { display: false },
+            tooltip: { enabled: true },
+          },
+        },
+      });
+
+      // Barras + linha
+      const barCtx = document.getElementById("barChart");
+      new Chart(barCtx, {
+        data: {
+          labels: ["Ago 2025", "Set 2025", "Out 2025", "Nov 2025", "Dez 2025", "Jan 2026"],
+          datasets: [
+            { type: "bar", label: "Entradas", data: [7200, 7600, 7400, 8000, 8200, 8400] },
+            { type: "bar", label: "Saídas", data: [4600, 5000, 4800, 5200, 5100, 5230] },
+            { type: "line", label: "Saldo Líquido", data: [2600, 2600, 2600, 2800, 3100, 3220], tension: 0.35 },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: { enabled: true },
+          },
+          scales: {
+            x: { grid: { display: false } },
+            y: { grid: { color: "rgba(255,255,255,0.06)" } },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KASH — Minhas Listas</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand__name">KASH</div>
+          <div class="brand__sub">Financial Ecosystem</div>
+        </div>
+
+        <nav class="nav">
+          <a class="nav__item" href="index.html">
+            <span class="nav__dot"></span>
+            <span>Dashboard</span>
+          </a>
+
+          <a class="nav__item is-active" href="minhas-listas.html">
+            <span class="nav__icon">≡</span>
+            <span>Minhas Listas</span>
+          </a>
+
+          <a class="nav__item" href="sugestoes-kash.html">
+  <span class="nav__icon">◎</span>
+  <span>Sugestões KASH</span>
+</a>
+
+          <a class="nav__item" href="relatorios.html">
+            <span class="nav__icon">↗</span>
+            <span>Relatórios</span>
+          </a>
+
+          <a class="nav__item" href="contas.html">
+            <span class="nav__icon">▦</span>
+            <span>Contas</span>
+          </a>
+
+          <a class="nav__item" href="#">
+            <span class="nav__icon">◴</span>
+            <span>Categorias</span>
+          </a>
+        </nav>
+
+        <div class="sidebar__fade"></div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main">
+        <!-- CONTENT -->
+        <section class="content">
+          <div class="page-head">
+            <div>
+              <h1 class="page-title">Minhas Listas</h1>
+              <p class="page-subtitle">Gerencie suas listas com inteligência artificial</p>
+            </div>
+
+            <div class="page-icons">
+              <button class="icon-btn" aria-label="Notificações">🔔</button>
+              <button class="icon-btn" aria-label="Ajuda">?</button>
+            </div>
+          </div>
+
+          <section class="ai-panel">
+            <div class="ai-badge">🪄</div>
+
+            <div class="ai-panel__body">
+              <div class="ai-input-wrap">
+                <input
+                  class="ai-input"
+                  placeholder='Digite aqui: "Criar lista de viagem para fim de semana" ou "Otimizar minha lista de compras".'
+                />
+                <button class="ai-cta">Criar com IA</button>
+              </div>
+
+              <p class="ai-hint">⚙ A IA Kash pode criar, otimizar e sugerir melhorias para suas listas</p>
+            </div>
+          </section>
+
+          <div class="row-head">
+            <div>
+              <h2 class="h2">Suas Listas</h2>
+              <p class="muted">6 listas ativas</p>
+            </div>
+
+            <div class="row-actions">
+              <button class="btn-ghost">
+                <span class="btn-ico">⏷</span> Filtrar
+              </button>
+              <button class="btn-primary">
+                <span class="plus">＋</span> Nova Lista
+              </button>
+            </div>
+          </div>
+
+          <!-- GRID: 6 CARDS (igual ao print) -->
+          <div class="list-grid">
+            <!-- 1 -->
+            <article class="list-card">
+              <div class="lc-top">
+                <div style="display:flex; gap:10px; align-items:center;">
+                  <div class="lc-icon is-blue">🛒</div>
+                  <div>
+                    <div class="lc-title">Supermercado</div>
+                    <div class="lc-meta">23 itens</div>
+                  </div>
+                </div>
+                <button class="kebab" aria-label="Menu">⋮</button>
+              </div>
+
+              <div class="ai-suggest">
+                <div class="ai-suggest__label">◎ Sugestão IA</div>
+                <div class="ai-suggest__text">Compre às terças-feiras para melhores preços</div>
+              </div>
+
+              <div class="lc-progress">
+                <div class="lc-progress__row">
+                  <span>Progresso</span>
+                  <span class="pct">65%</span>
+                </div>
+                <div class="bar">
+                  <div class="bar__fill is-green" style="width:65%"></div>
+                </div>
+              </div>
+
+              <div class="lc-bottom">
+                <div>
+                  <div class="lc-bottom__label">Custo estimado</div>
+                  <div class="lc-money">R$ 342,50</div>
+                </div>
+                <span class="pill-status is-green">Ativa</span>
+              </div>
+            </article>
+
+            <!-- 2 -->
+            <article class="list-card">
+              <div class="lc-top">
+                <div style="display:flex; gap:10px; align-items:center;">
+                  <div class="lc-icon is-purple">✈️</div>
+                  <div>
+                    <div class="lc-title">Viagem Lisboa</div>
+                    <div class="lc-meta">15 itens</div>
+                  </div>
+                </div>
+                <button class="kebab" aria-label="Menu">⋮</button>
+              </div>
+
+              <div class="ai-suggest">
+                <div class="ai-suggest__label">◎ Sugestão IA</div>
+                <div class="ai-suggest__text">Reserve voos 3 semanas antes para economizar 25%</div>
+              </div>
+
+              <div class="lc-progress">
+                <div class="lc-progress__row">
+                  <span>Progresso</span>
+                  <span class="pct">40%</span>
+                </div>
+                <div class="bar">
+                  <div class="bar__fill is-yellow" style="width:40%"></div>
+                </div>
+              </div>
+
+              <div class="lc-bottom">
+                <div>
+                  <div class="lc-bottom__label">Custo estimado</div>
+                  <div class="lc-money">R$ 8.450,00</div>
+                </div>
+                <span class="pill-status is-blue">Planejando</span>
+              </div>
+            </article>
+
+            <!-- 3 -->
+            <article class="list-card">
+              <div class="lc-top">
+                <div style="display:flex; gap:10px; align-items:center;">
+                  <div class="lc-icon is-green">🏠</div>
+                  <div>
+                    <div class="lc-title">Reforma Casa</div>
+                    <div class="lc-meta">42 itens</div>
+                  </div>
+                </div>
+                <button class="kebab" aria-label="Menu">⋮</button>
+              </div>
+
+              <div class="ai-suggest">
+                <div class="ai-suggest__label">◎ Sugestão IA</div>
+                <div class="ai-suggest__text">Compre 3 fornecedores para economizar até 18%</div>
+              </div>
+
+              <div class="lc-progress">
+                <div class="lc-progress__row">
+                  <span>Progresso</span>
+                  <span class="pct">80%</span>
+                </div>
+                <div class="bar">
+                  <div class="bar__fill is-yellow" style="width:80%"></div>
+                </div>
+              </div>
+
+              <div class="lc-bottom">
+                <div>
+                  <div class="lc-bottom__label">Custo estimado</div>
+                  <div class="lc-money">R$ 15.200,00</div>
+                </div>
+                <span class="pill-status is-green">Ativa</span>
+              </div>
+            </article>
+
+            <!-- 4 -->
+            <article class="list-card">
+              <div class="lc-top">
+                <div style="display:flex; gap:10px; align-items:center;">
+                  <div class="lc-icon is-red">❤️</div>
+                  <div>
+                    <div class="lc-title">Aniversário Mãe</div>
+                    <div class="lc-meta">8 itens</div>
+                  </div>
+                </div>
+                <button class="kebab" aria-label="Menu">⋮</button>
+              </div>
+
+              <div class="ai-suggest">
+                <div class="ai-suggest__label">◎ Sugestão IA</div>
+                <div class="ai-suggest__text">Reserve restaurante com 2 semanas de antecedência</div>
+              </div>
+
+              <div class="lc-progress">
+                <div class="lc-progress__row">
+                  <span>Progresso</span>
+                  <span class="pct">30%</span>
+                </div>
+                <div class="bar">
+                  <div class="bar__fill is-yellow" style="width:30%"></div>
+                </div>
+              </div>
+
+              <div class="lc-bottom">
+                <div>
+                  <div class="lc-bottom__label">Custo estimado</div>
+                  <div class="lc-money">R$ 1.850,00</div>
+                </div>
+                <span class="pill-status is-blue">Planejando</span>
+              </div>
+            </article>
+
+            <!-- 5 -->
+            <article class="list-card">
+              <div class="lc-top">
+                <div style="display:flex; gap:10px; align-items:center;">
+                  <div class="lc-icon is-yellow">🎓</div>
+                  <div>
+                    <div class="lc-title">Cursos Online</div>
+                    <div class="lc-meta">5 itens</div>
+                  </div>
+                </div>
+                <button class="kebab" aria-label="Menu">⋮</button>
+              </div>
+
+              <div class="ai-suggest">
+                <div class="ai-suggest__label">◎ Sugestão IA</div>
+                <div class="ai-suggest__text">Black Friday: economize até 40% em cursos</div>
+              </div>
+
+              <div class="lc-progress">
+                <div class="lc-progress__row">
+                  <span>Progresso</span>
+                  <span class="pct">20%</span>
+                </div>
+                <div class="bar">
+                  <div class="bar__fill is-yellow" style="width:20%"></div>
+                </div>
+              </div>
+
+              <div class="lc-bottom">
+                <div>
+                  <div class="lc-bottom__label">Custo estimado</div>
+                  <div class="lc-money">R$ 2.400,00</div>
+                </div>
+                <span class="pill-status is-blue">Planejando</span>
+              </div>
+            </article>
+
+            <!-- 6 -->
+            <article class="list-card">
+              <div class="lc-top">
+                <div style="display:flex; gap:10px; align-items:center;">
+                  <div class="lc-icon is-pink">🏋️</div>
+                  <div>
+                    <div class="lc-title">Academia</div>
+                    <div class="lc-meta">12 itens</div>
+                  </div>
+                </div>
+                <button class="kebab" aria-label="Menu">⋮</button>
+              </div>
+
+              <div class="ai-suggest">
+                <div class="ai-suggest__label">◎ Sugestão IA</div>
+                <div class="ai-suggest__text">Planos anuais: economize 30% vs mensais</div>
+              </div>
+
+              <div class="lc-progress">
+                <div class="lc-progress__row">
+                  <span>Progresso</span>
+                  <span class="pct">90%</span>
+                </div>
+                <div class="bar">
+                  <div class="bar__fill is-yellow" style="width:90%"></div>
+                </div>
+              </div>
+
+              <div class="lc-bottom">
+                <div>
+                  <div class="lc-bottom__label">Custo estimado</div>
+                  <div class="lc-money">R$ 1.680,00</div>
+                </div>
+                <span class="pill-status is-green">Ativa</span>
+              </div>
+            </article>
+          </div>
+
+          <!-- INSIGHTS (2 cards) -->
+          <section class="insights">
+            <h2 class="h2">Insights IA Kash</h2>
+
+            <div class="insights-grid">
+              <article class="insight-card">
+                <div class="ins-icon is-yellow">📊</div>
+                <div>
+                  <div class="ins-title">Economia Potencial</div>
+                  <div class="ins-text">
+                    Seguindo as sugestões da IA, você pode economizar até R$ 1.245,00 este mês
+                  </div>
+                  <a class="ins-link" href="#">Ver detalhes →</a>
+                </div>
+              </article>
+
+              <article class="insight-card">
+                <div class="ins-icon is-yellow2">🗓️</div>
+                <div>
+                  <div class="ins-title">Melhor Momento</div>
+                  <div class="ins-text">
+                    Terça-feira é o melhor dia para compras de supermercado com descontos médios de 12%
+                  </div>
+                  <a class="ins-link" href="#">Agendar lembrete →</a>
+                </div>
+              </article>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

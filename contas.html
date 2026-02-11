@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KASH — Contas</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand__name">KASH</div>
+          <div class="brand__sub">Financial Ecosystem</div>
+        </div>
+
+        <nav class="nav">
+          <a class="nav__item" href="index.html">
+            <span class="nav__dot"></span>
+            <span>Dashboard</span>
+          </a>
+
+          <a class="nav__item" href="minhas-listas.html">
+            <span class="nav__icon">≡</span>
+            <span>Minhas Listas</span>
+          </a>
+
+          <a class="nav__item" href="sugestoes-kash.html">
+            <span class="nav__icon">◎</span>
+            <span>Sugestões KASH</span>
+          </a>
+
+          <a class="nav__item" href="relatorios.html">
+            <span class="nav__icon">↗</span>
+            <span>Relatórios</span>
+          </a>
+
+          <a class="nav__item is-active" href="contas.html">
+            <span class="nav__icon">▦</span>
+            <span>Contas</span>
+          </a>
+
+          <a class="nav__item" href="#">
+            <span class="nav__icon">◴</span>
+            <span>Categorias</span>
+          </a>
+        </nav>
+
+        <div class="sidebar__fade"></div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main">
+        <section class="content">
+          <!-- Topo -->
+          <div class="acc-head">
+            <h1 class="acc-title">Contas</h1>
+
+            <div class="acc-user">
+              <button class="icon-btn" aria-label="Notificações">🔔</button>
+              <div class="acc-user__info">
+                <div class="acc-user__name">Ana Silva</div>
+                <div class="acc-user__plan">Premium</div>
+              </div>
+              <div class="acc-user__avatar" aria-label="Avatar"></div>
+            </div>
+          </div>
+
+          <!-- Saldo consolidado -->
+          <section class="acc-total">
+            <div class="acc-total__label">SALDO TOTAL CONSOLIDADO</div>
+            <div class="acc-total__value">R$ 127.543,89</div>
+            <div class="acc-total__meta">
+              <span class="acc-up">↑ +4,2%</span>
+              <span class="acc-muted">vs. mês anterior</span>
+            </div>
+          </section>
+
+          <!-- Suas contas + botão -->
+          <div class="acc-rowhead">
+            <div>
+              <h2 class="acc-h2">Suas Contas</h2>
+            </div>
+
+            <button class="acc-add">
+              <span class="plus">＋</span>
+              Adicionar Nova Conta
+            </button>
+          </div>
+
+          <!-- Grid de contas -->
+          <div class="acc-grid">
+            <!-- Nubank -->
+            <article class="acc-card">
+              <div class="acc-card__top">
+                <div class="acc-bank">
+                  <div class="acc-ico is-purple">▦</div>
+                  <div>
+                    <div class="acc-bank__name">Nubank</div>
+                    <div class="acc-bank__type">Conta Corrente</div>
+                  </div>
+                </div>
+                <button class="kebab" aria-label="Menu">⋮</button>
+              </div>
+
+              <div class="acc-money">R$ 45.230,50</div>
+              <div class="acc-sync">⏱ Sincronizado há 5 min</div>
+            </article>
+
+            <!-- Itaú -->
+            <article class="acc-card">
+              <div class="acc-card__top">
+                <div class="acc-bank">
+                  <div class="acc-ico is-orange">🏦</div>
+                  <div>
+                    <div class="acc-bank__name">Itaú</div>
+                    <div class="acc-bank__type">Poupança</div>
+                  </div>
+                </div>
+                <button class="kebab" aria-label="Menu">⋮</button>
+              </div>
+
+              <div class="acc-money">R$ 28.750,00</div>
+              <div class="acc-sync">⏱ Sincronizado há 12 min</div>
+            </article>
+
+            <!-- XP -->
+            <article class="acc-card">
+              <div class="acc-card__top">
+                <div class="acc-bank">
+                  <div class="acc-ico is-blue">📈</div>
+                  <div>
+                    <div class="acc-bank__name">XP Investimentos</div>
+                    <div class="acc-bank__type">Investimentos</div>
+                  </div>
+                </div>
+                <button class="kebab" aria-label="Menu">⋮</button>
+              </div>
+
+              <div class="acc-money">R$ 38.463,39</div>
+              <div class="acc-sync">⏱ Sincronizado há 1 hora</div>
+            </article>
+
+            <!-- KASH Carteira -->
+            <article class="acc-card">
+              <div class="acc-card__top">
+                <div class="acc-bank">
+                  <div class="acc-ico is-yellow">▣</div>
+                  <div>
+                    <div class="acc-bank__name">KASH Carteira</div>
+                    <div class="acc-bank__type">Carteira Digital</div>
+                  </div>
+                </div>
+                <button class="kebab" aria-label="Menu">⋮</button>
+              </div>
+
+              <div class="acc-money">R$ 12.100,00</div>
+              <div class="acc-sync">⏱ Sincronizado há 2 min</div>
+            </article>
+
+            <!-- Santander -->
+            <article class="acc-card">
+              <div class="acc-card__top">
+                <div class="acc-bank">
+                  <div class="acc-ico is-red">▭</div>
+                  <div>
+                    <div class="acc-bank__name">Santander</div>
+                    <div class="acc-bank__type">Conta Corrente</div>
+                  </div>
+                </div>
+                <button class="kebab" aria-label="Menu">⋮</button>
+              </div>
+
+              <div class="acc-money">R$ 3.000,00</div>
+              <div class="acc-sync">⏱ Sincronizado há 30 min</div>
+            </article>
+
+            <!-- Adicionar conta (card tracejado) -->
+            <article class="acc-card acc-card--add">
+              <div class="acc-addbox">
+                <div class="acc-addbox__plus">＋</div>
+                <div class="acc-addbox__title">Adicionar Conta</div>
+                <div class="acc-addbox__text">Conecte uma nova conta bancária</div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Transações recentes -->
+          <section class="acc-tx">
+            <div class="acc-tx__head">
+              <h2 class="acc-h2">Transações Recentes</h2>
+              <a class="panel__link" href="#">Ver todas →</a>
+            </div>
+
+            <div class="transactions">
+              <div class="tx">
+                <div class="tx__icon is-blue">🛒</div>
+                <div class="tx__info">
+                  <div class="tx__name">Amazon Brasil</div>
+                  <div class="tx__meta">Nubank • Hoje às 14:32</div>
+                </div>
+                <div class="tx__value is-neg">-R$ 234,90</div>
+              </div>
+
+              <div class="tx">
+                <div class="tx__icon is-green">⬇</div>
+                <div class="tx__info">
+                  <div class="tx__name">Salário - Empresa XYZ</div>
+                  <div class="tx__meta">Itaú • Hoje às 09:15</div>
+                </div>
+                <div class="tx__value is-pos">+R$ 8.500,00</div>
+              </div>
+
+              <div class="tx">
+                <div class="tx__icon is-purple">🍔</div>
+                <div class="tx__info">
+                  <div class="tx__name">iFood</div>
+                  <div class="tx__meta">KASH Carteira • Ontem às 20:45</div>
+                </div>
+                <div class="tx__value is-neg">-R$ 67,50</div>
+              </div>
+
+              <div class="tx">
+                <div class="tx__icon is-yellow">⚡</div>
+                <div class="tx__info">
+                  <div class="tx__name">Conta de Luz - CPFL</div>
+                  <div class="tx__meta">Santander • Ontem às 15:20</div>
+                </div>
+                <div class="tx__value is-neg">-R$ 189,75</div>
+              </div>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
