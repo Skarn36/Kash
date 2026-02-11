@@ -86,21 +86,21 @@
           <div class="row-head">
             <div>
               <h2 class="h2">Suas Listas</h2>
-              <p class="muted">6 listas ativas</p>
+              <p class="muted"><span id="listsCount">6</span> listas ativas</p>
             </div>
 
             <div class="row-actions">
               <button class="btn-ghost">
                 <span class="btn-ico">⏷</span> Filtrar
               </button>
-              <button class="btn-primary">
+              <button class="btn-primary" id="btnNovaLista" type="button">
                 <span class="plus">＋</span> Nova Lista
               </button>
             </div>
           </div>
 
           <!-- GRID: 6 CARDS (igual ao print) -->
-          <div class="list-grid">
+          <div class="list-grid" id="listsGrid">
             <!-- 1 -->
             <article class="list-card">
               <div class="lc-top">
@@ -355,5 +355,355 @@
         </section>
       </main>
     </div>
+
+    <!-- ===== MODAL: NOVA LISTA ===== -->
+<div class="modal" id="modalNovaLista" aria-hidden="true">
+  <div class="modal__backdrop" data-close="1"></div>
+
+  <div class="modal__panel" role="dialog" aria-modal="true" aria-label="Criar nova lista">
+    <div class="modal__top">
+      <div>
+        <div class="modal__title">Nova Lista</div>
+        <div class="modal__subtitle">Defina nome, itens e orçamento disponível</div>
+      </div>
+
+      <button class="modal__close" type="button" data-close="1" aria-label="Fechar">✕</button>
+    </div>
+
+    <div class="modal__body">
+      <div class="form-grid">
+        <div class="field">
+          <label>Nome da lista</label>
+          <input id="nl_nome" type="text" placeholder="Ex.: Reforma Casa" />
+        </div>
+
+        <div class="field">
+          <label>Valor disponível (R$)</label>
+          <input id="nl_disponivel" type="text" inputmode="decimal" placeholder="Ex.: 1500,00" />
+        </div>
+      </div>
+
+      <div class="items-box">
+        <div class="items-box__top">
+          <div class="items-box__title">Itens</div>
+          <button class="btn-ghost btn-ghost--sm" id="btnAddItem" type="button">
+            <span class="btn-ico">＋</span> Adicionar item
+          </button>
+        </div>
+
+        <div class="items-table" id="itemsTable">
+          <!-- Linhas de itens entram via JS -->
+        </div>
+      </div>
+
+      <div class="summary">
+        <div class="sum-card">
+          <div class="sum-label">Custo estimado</div>
+          <div class="sum-value" id="nl_estimado">R$ 0,00</div>
+        </div>
+
+        <div class="sum-card">
+          <div class="sum-label">Progresso</div>
+          <div class="sum-value"><span id="nl_pct">0%</span></div>
+          <div class="bar bar--sm">
+            <div class="bar__fill is-yellow" id="nl_bar" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal__actions">
+        <button class="btn-ghost" type="button" data-close="1">Cancelar</button>
+        <button class="btn-primary" type="button" id="btnSalvarLista">
+          <span class="plus">＋</span> Criar Lista
+        </button>
+      </div>
+
+      <div class="tiny-note">
+        * O sistema gera um <b>ID</b> automaticamente (pronto pra banco depois).
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  // ===== Helpers =====
+  const qs = (s, root=document) => root.querySelector(s);
+  const qsa = (s, root=document) => [...root.querySelectorAll(s)];
+
+  const parseBRL = (str) => {
+    if (!str) return 0;
+    const cleaned = String(str)
+      .replace(/\s/g, "")
+      .replace("R$", "")
+      .replace(/\./g, "")
+      .replace(",", ".");
+    const n = Number(cleaned);
+    return Number.isFinite(n) ? n : 0;
+  };
+
+  const formatBRL = (n) => {
+    const v = Number(n || 0);
+    return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  };
+
+  // ID "ok" pro front (pra virar ID de banco depois)
+  const makeId = () =>
+    "lst_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8);
+
+  // ===== Elementos =====
+  const btnNova = qs("#btnNovaLista");
+  const modal = qs("#modalNovaLista");
+  const grid = qs("#listsGrid");
+  const countEl = qs("#listsCount");
+
+  const inNome = qs("#nl_nome");
+  const inDisp = qs("#nl_disponivel");
+  const itemsTable = qs("#itemsTable");
+  const btnAddItem = qs("#btnAddItem");
+  const btnSalvar = qs("#btnSalvarLista");
+
+  const estEl = qs("#nl_estimado");
+  const pctEl = qs("#nl_pct");
+  const barEl = qs("#nl_bar");
+
+  // ===== State =====
+  let items = [];
+
+  // Carrega do localStorage (sem backend, mas “lembra” no navegador)
+  const LS_KEY = "kash_lists_v1";
+  const loadLists = () => {
+    try { return JSON.parse(localStorage.getItem(LS_KEY) || "[]"); }
+    catch { return []; }
+  };
+  const saveLists = (lists) => localStorage.setItem(LS_KEY, JSON.stringify(lists));
+
+  const updateCount = () => {
+    // Conta: cards fixos do HTML + cards criados
+    const total = qsa(".list-card", grid).length;
+    countEl.textContent = String(total);
+  };
+
+  // ===== Modal open/close =====
+  const openModal = () => {
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+  };
+  const closeModal = () => {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+  };
+
+  modal.addEventListener("click", (e) => {
+    const t = e.target;
+    if (t && t.dataset && t.dataset.close) closeModal();
+  });
+
+  btnNova?.addEventListener("click", () => {
+    // reset
+    inNome.value = "";
+    inDisp.value = "";
+    items = [{ name: "", value: 0 }];
+    renderItems();
+    recalc();
+    openModal();
+  });
+
+  // ===== Items UI =====
+  const renderItems = () => {
+    itemsTable.innerHTML = items.map((it, idx) => `
+      <div class="item-row" data-idx="${idx}">
+        <input class="item-name" type="text" placeholder="Item ${idx+1} (ex.: Tinta)" value="${escapeHtml(it.name)}" />
+        <input class="item-value" type="text" inputmode="decimal" placeholder="0,00" value="${it.value ? String(it.value).replace(".", ",") : ""}" />
+        <button class="item-del" type="button" title="Remover">✕</button>
+      </div>
+    `).join("");
+  };
+
+  const escapeHtml = (s) =>
+    String(s || "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
+
+  const recalc = () => {
+    const totalEstimado = items.reduce((acc, it) => acc + (Number(it.value) || 0), 0);
+    const disponivel = parseBRL(inDisp.value);
+
+    const pct = totalEstimado > 0 ? Math.min(100, Math.max(0, (disponivel / totalEstimado) * 100)) : 0;
+    const pctRound = Math.round(pct);
+
+    estEl.textContent = formatBRL(totalEstimado);
+    pctEl.textContent = pctRound + "%";
+    barEl.style.width = pctRound + "%";
+  };
+
+  btnAddItem.addEventListener("click", () => {
+    items.push({ name: "", value: 0 });
+    renderItems();
+    recalc();
+  });
+
+  itemsTable.addEventListener("input", (e) => {
+    const row = e.target.closest(".item-row");
+    if (!row) return;
+    const idx = Number(row.dataset.idx);
+
+    if (e.target.classList.contains("item-name")) {
+      items[idx].name = e.target.value;
+    }
+    if (e.target.classList.contains("item-value")) {
+      items[idx].value = parseBRL(e.target.value);
+    }
+    recalc();
+  });
+
+  itemsTable.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("item-del")) return;
+    const row = e.target.closest(".item-row");
+    const idx = Number(row.dataset.idx);
+
+    items.splice(idx, 1);
+    if (items.length === 0) items.push({ name: "", value: 0 });
+
+    renderItems();
+    recalc();
+  });
+
+  inDisp.addEventListener("input", recalc);
+
+  // ===== Create card =====
+  const pickIcon = (name) => {
+    const n = (name || "").toLowerCase();
+    if (n.includes("viagem")) return { icon:"✈️", cls:"is-purple", bar:"is-yellow" };
+    if (n.includes("super") || n.includes("mercado")) return { icon:"🛒", cls:"is-blue", bar:"is-green" };
+    if (n.includes("reforma") || n.includes("casa")) return { icon:"🏠", cls:"is-green", bar:"is-yellow" };
+    if (n.includes("curso")) return { icon:"🎓", cls:"is-yellow", bar:"is-yellow" };
+    if (n.includes("anivers")) return { icon:"❤️", cls:"is-red", bar:"is-yellow" };
+    return { icon:"📋", cls:"is-blue", bar:"is-yellow" };
+  };
+
+  const createCardHtml = ({ id, title, itemsCount, estimated, pct, icon, iconCls, barCls, statusText, statusCls }) => {
+    return `
+      <article class="list-card" data-list-id="${id}">
+        <div class="lc-top">
+          <div style="display:flex; gap:10px; align-items:center;">
+            <div class="lc-icon ${iconCls}">${icon}</div>
+            <div>
+              <div class="lc-title">${escapeHtml(title)}</div>
+              <div class="lc-meta">${itemsCount} itens</div>
+            </div>
+          </div>
+          <button class="kebab" aria-label="Menu">⋮</button>
+        </div>
+
+        <div class="ai-suggest">
+          <div class="ai-suggest__label">◎ Sugestão IA</div>
+          <div class="ai-suggest__text">Adicione itens essenciais primeiro para estimar melhor o custo total</div>
+        </div>
+
+        <div class="lc-progress">
+          <div class="lc-progress__row">
+            <span>Progresso</span>
+            <span class="pct">${pct}%</span>
+          </div>
+          <div class="bar">
+            <div class="bar__fill ${barCls}" style="width:${pct}%"></div>
+          </div>
+        </div>
+
+        <div class="lc-bottom">
+          <div>
+            <div class="lc-bottom__label">Custo estimado</div>
+            <div class="lc-money">${formatBRL(estimated)}</div>
+          </div>
+          <span class="pill-status ${statusCls}">${escapeHtml(statusText)}</span>
+        </div>
+      </article>
+    `;
+  };
+
+  btnSalvar.addEventListener("click", () => {
+    const title = (inNome.value || "").trim();
+    const disponivel = parseBRL(inDisp.value);
+
+    const cleanItems = items
+      .map(i => ({ name: (i.name||"").trim(), value: Number(i.value)||0 }))
+      .filter(i => i.name || i.value > 0);
+
+    const estimated = cleanItems.reduce((a, i) => a + i.value, 0);
+    const pct = estimated > 0 ? Math.round(Math.min(100, Math.max(0, (disponivel / estimated) * 100))) : 0;
+
+    if (!title) {
+      inNome.focus();
+      return;
+    }
+
+    const id = makeId();
+
+    const iconPick = pickIcon(title);
+
+    const statusText = pct >= 100 ? "Ativa" : "Planejando";
+    const statusCls = pct >= 100 ? "is-green" : "is-blue";
+
+    // Adiciona no DOM (no topo)
+    grid.insertAdjacentHTML("afterbegin", createCardHtml({
+      id,
+      title,
+      itemsCount: cleanItems.length || 0,
+      estimated,
+      pct,
+      icon: iconPick.icon,
+      iconCls: iconPick.cls,
+      barCls: iconPick.bar,
+      statusText,
+      statusCls
+    }));
+
+    // Persiste no navegador (sem backend)
+    const lists = loadLists();
+    lists.unshift({
+      id,
+      title,
+      disponivel,
+      items: cleanItems,
+      estimated,
+      pct,
+      createdAt: new Date().toISOString()
+    });
+    saveLists(lists);
+
+    updateCount();
+    closeModal();
+  });
+
+  // ===== Renderiza listas salvas ao carregar =====
+  const boot = () => {
+    const lists = loadLists();
+    if (lists.length) {
+      // coloca as salvas no topo, mantendo as 6 “fixas” abaixo
+      [...lists].reverse().forEach((l) => {
+        const iconPick = pickIcon(l.title);
+        const statusText = (l.pct >= 100) ? "Ativa" : "Planejando";
+        const statusCls = (l.pct >= 100) ? "is-green" : "is-blue";
+
+        grid.insertAdjacentHTML("afterbegin", createCardHtml({
+          id: l.id,
+          title: l.title,
+          itemsCount: (l.items?.length || 0),
+          estimated: l.estimated || 0,
+          pct: l.pct || 0,
+          icon: iconPick.icon,
+          iconCls: iconPick.cls,
+          barCls: iconPick.bar,
+          statusText,
+          statusCls
+        }));
+      });
+    }
+    updateCount();
+  };
+
+  boot();
+})();
+</script>
+
   </body>
 </html>
