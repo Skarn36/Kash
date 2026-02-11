@@ -2879,3 +2879,302 @@ body {
 .login-btn:visited{
   text-decoration: none;
 }
+
+/* ========= Modal Nova Transação ========= */
+.modal{ display:none; position:fixed; inset:0; z-index: 1000; }
+.modal.is-open{ display:block; }
+
+.modal__backdrop{
+  position:absolute; inset:0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+}
+
+.modal__card{
+  position: relative;
+  width: min(820px, calc(100% - 24px));
+  margin: 80px auto 0;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  box-shadow: 0 18px 60px rgba(0,0,0,0.55);
+  padding: 14px;
+}
+
+.modal__head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.modal__title{ font-weight:900; font-size: 14px; }
+.modal__sub{ margin-top:6px; font-size:12px; color: rgba(255,255,255,0.45); }
+
+.modal__x{
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.03);
+  color: rgba(255,255,255,0.70);
+  cursor:pointer;
+  font-size: 18px;
+}
+
+.modal__form{ padding-top: 12px; display:flex; flex-direction:column; gap: 12px; }
+.frow{ display:grid; grid-template-columns: 1.6fr 1fr; gap: 12px; }
+.frow:last-of-type{ grid-template-columns: 1fr 1fr 1fr; }
+
+.ffield label{
+  display:block;
+  font-size:12px;
+  color: rgba(255,255,255,0.55);
+  font-weight: 900;
+  margin-bottom: 7px;
+}
+.ffield input, .ffield select{
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 12px;
+  padding: 11px 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.12);
+  color: rgba(255,255,255,0.85);
+  outline: none;
+}
+
+.modal__actions{
+  display:flex;
+  justify-content:flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.btn-ghost{
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.75);
+  font-weight: 900;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.modal__hint{
+  font-size: 11px;
+  color: rgba(255,255,255,0.40);
+}
+
+@media (max-width: 760px){
+  .frow{ grid-template-columns: 1fr; }
+}
+
+/* ===============================
+   Modal (Nova Lista)
+=============================== */
+.modal { position: fixed; inset: 0; display: none; z-index: 9999; }
+.modal.is-open { display: block; }
+
+.modal__backdrop{
+  position:absolute; inset:0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+}
+
+.modal__panel{
+  position: relative;
+  width: min(720px, calc(100vw - 28px));
+  margin: 6vh auto 0;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: linear-gradient(180deg, rgba(20,26,36,0.98), rgba(14,18,26,0.98));
+  box-shadow: 0 22px 60px rgba(0,0,0,0.50);
+  overflow: hidden;
+}
+
+.modal__top{
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+}
+
+.modal__title{ font-weight: 900; font-size: 16px; }
+.modal__subtitle{
+  margin-top: 6px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+}
+
+.modal__close{
+  background: transparent;
+  border: 0;
+  color: rgba(255,255,255,0.70);
+  font-size: 16px;
+  cursor: pointer;
+}
+.modal__close:hover{ color: rgba(255,255,255,0.95); }
+
+.modal__body{ padding: 16px 18px 18px; }
+
+.form-grid{
+  display:grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 12px;
+}
+
+.field label{
+  display:block;
+  font-size: 12px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 8px;
+}
+
+.field input{
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.03);
+  color: rgba(255,255,255,0.90);
+  outline: none;
+}
+
+.field input:focus{
+  border-color: rgba(216,169,40,0.35);
+  box-shadow: 0 0 0 3px rgba(216,169,40,0.08);
+}
+
+.items-box{
+  margin-top: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.02);
+  padding: 12px;
+}
+
+.items-box__top{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.items-box__title{ font-weight: 900; font-size: 13px; }
+
+.btn-ghost--sm{
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.items-table{
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item-row{
+  display:grid;
+  grid-template-columns: 1fr 160px 40px;
+  gap: 10px;
+  align-items: center;
+}
+
+.item-row input{
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.03);
+  color: rgba(255,255,255,0.90);
+  padding: 0 12px;
+  outline:none;
+}
+
+.item-del{
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.02);
+  color: rgba(255,255,255,0.70);
+  cursor:pointer;
+}
+.item-del:hover{
+  background: rgba(224,90,99,0.12);
+  border-color: rgba(224,90,99,0.20);
+  color: rgba(255,255,255,0.95);
+}
+
+.summary{
+  margin-top: 14px;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.sum-card{
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.02);
+  padding: 12px;
+}
+
+.sum-label{
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  font-weight: 800;
+}
+
+.sum-value{
+  margin-top: 6px;
+  font-weight: 900;
+}
+
+.bar--sm{ margin-top: 10px; }
+
+.modal__actions{
+  margin-top: 14px;
+  display:flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.tiny-note{
+  margin-top: 10px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+}
+
+@media (max-width: 720px){
+  .form-grid{ grid-template-columns: 1fr; }
+  .item-row{ grid-template-columns: 1fr 130px 40px; }
+  .summary{ grid-template-columns: 1fr; }
+}
+
+.logout-btn{
+  margin-left: 14px;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.2);
+  background: rgba(216,169,40,0.95);
+  color: #191306;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.logout-btn:hover{
+  background: rgba(236,187,60,1);
+  box-shadow: 0 0 18px rgba(216,169,40,0.35);
+  transform: translateY(-1px);
+}
