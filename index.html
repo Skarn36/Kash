@@ -71,9 +71,9 @@
 
           <div class="topbar__right">
             <a href="notificacoes.html" class="icon-btn" aria-label="Notificações">
-  🔔
-  <span class="badge">3</span>
-</a>
+              🔔
+              <span class="badge">3</span>
+            </a>
 
             <a class="top-user" href="perfil.html">
               <div class="top-user__text">
@@ -84,6 +84,9 @@
               <div class="top-user__avatar" aria-label="Avatar do usuário"></div>
             </a>
 
+            <div class="user-area">
+              <button class="logout-btn" onclick="logout()">Sair</button>
+            </div>
 
           </div>
         </header>
@@ -104,7 +107,7 @@
                 <span class="caret">▾</span>
               </button>
 
-              <button class="btn-primary">
+              <button id="btnNovaTransacao" class="btn-primary">
                 <span class="plus">＋</span>
                 Nova Transação
               </button>
@@ -418,7 +421,7 @@
       <a class="panel__link" href="#">Ver Todas →</a>
     </div>
 
-    <div class="transactions">
+    <div class="transactions" id="transactionsList">
 
       <div class="tx">
         <div class="tx__icon is-red">🍽️</div>
@@ -546,5 +549,275 @@
 
     <!-- Opcional -->
     <!-- <script src="app.js"></script> -->
+
+    <div class="modal" id="trxModal" aria-hidden="true">
+  <div class="modal__backdrop" data-close="1"></div>
+
+  <div class="modal__card" role="dialog" aria-modal="true" aria-label="Nova Transação">
+    <div class="modal__head">
+      <div>
+        <div class="modal__title">Nova Transação</div>
+        <div class="modal__sub">Preencha os dados para adicionar em “Transações Recentes”</div>
+      </div>
+      <button class="modal__x" id="trxClose" aria-label="Fechar">×</button>
+    </div>
+
+    <form class="modal__form" id="trxForm">
+      <div class="frow">
+        <div class="ffield">
+          <label>Nome / Descrição</label>
+          <input id="trxNome" type="text" placeholder="Ex: Restaurante Mexicano" required />
+        </div>
+        <div class="ffield">
+          <label>Tipo</label>
+          <select id="trxTipo" required>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Compras">Compras</option>
+            <option value="Entretenimento">Entretenimento</option>
+            <option value="Utilidades">Utilidades</option>
+            <option value="Saúde">Saúde</option>
+            <option value="Receita">Receita</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="frow">
+        <div class="ffield">
+          <label>Valor (R$)</label>
+          <input id="trxValor" type="number" step="0.01" placeholder="67.00" required />
+        </div>
+
+        <div class="ffield">
+          <label>Data</label>
+          <input id="trxData" type="date" required />
+        </div>
+
+        <div class="ffield">
+          <label>Hora</label>
+          <input id="trxHora" type="time" required />
+        </div>
+      </div>
+
+      <div class="modal__actions">
+        <button class="btn-ghost" type="button" id="trxCancel">Cancelar</button>
+        <button class="btn-primary" type="submit">Adicionar</button>
+      </div>
+
+      <div class="modal__hint">
+        * O sistema gera um <b>ID único</b> (pronto para backend depois).
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // ===== Helpers =====
+  const pad2 = (n) => String(n).padStart(2, "0");
+
+  function formatBRL(valueNumber){
+    const v = Number(valueNumber || 0);
+    return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  }
+
+  function generateId(){
+    // ID pronto pra backend (único o suficiente pro front)
+    return "trx_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8);
+  }
+
+  function iconForType(tipo){
+    // Ícones simples (como no seu layout)
+    const map = {
+      "Alimentação": "🍽",
+      "Transporte": "⛽",
+      "Compras": "🛒",
+      "Entretenimento": "🎬",
+      "Utilidades": "⚡",
+      "Saúde": "💊",
+      "Receita": "📈",
+    };
+    return map[tipo] || "•";
+  }
+
+  function signForType(tipo, valor){
+    const v = Number(valor);
+    const isIncome = (tipo === "Receita");
+    const amount = formatBRL(Math.abs(v));
+    return isIncome ? `+${amount}` : `-${amount}`;
+  }
+
+  function classForType(tipo){
+    return (tipo === "Receita") ? "is-plus" : "is-minus";
+  }
+
+  function loadTransacoes(){
+    try{
+      return JSON.parse(localStorage.getItem("kash_transacoes") || "[]");
+    }catch(e){
+      return [];
+    }
+  }
+
+  function saveTransacoes(list){
+    localStorage.setItem("kash_transacoes", JSON.stringify(list));
+  }
+
+  // ===== Render =====
+  const recentesList = document.getElementById("transactionsList");
+
+  function colorClassForType(tipo){
+  const map = {
+    "Alimentação": "is-red",
+    "Receita": "is-green",
+    "Transporte": "is-orange",
+    "Compras": "is-blue",
+    "Entretenimento": "is-purple",
+    "Utilidades": "is-yellow",
+    "Saúde": "is-green"
+  };
+  return map[tipo] || "is-blue";
+}
+
+function valueClassForType(tipo){
+  return (tipo === "Receita") ? "is-pos" : "is-neg";
+}
+
+function renderTransacaoItem(t){
+  const wrapper = document.createElement("div");
+  wrapper.className = "tx";
+  wrapper.dataset.id = t.id;
+
+  // "Alimentação • Hoje 21:00"
+  const meta = `${t.tipo} • ${t.dataLabel} ${t.horaLabel || ""}`.trim();
+
+  wrapper.innerHTML = `
+    <div class="tx__icon ${colorClassForType(t.tipo)}">${iconForType(t.tipo)}</div>
+    <div class="tx__info">
+      <div class="tx__name">${t.nome}</div>
+      <div class="tx__meta">${meta}</div>
+    </div>
+    <div class="tx__value ${valueClassForType(t.tipo)}">${signForType(t.tipo, t.valor)}</div>
+  `;
+
+  return wrapper;
+}
+
+
+  function renderRecentes(){
+    if(!recentesList) return;
+
+    // Mantém os itens fixos já existentes? Se você quiser limpar e renderizar só os do storage:
+    // recentesList.innerHTML = "";
+
+    const stored = loadTransacoes();
+
+    // Renderiza do mais recente pro mais antigo
+    stored.slice().reverse().forEach(t => {
+      const el = renderTransacaoItem(t);
+      recentesList.prepend(el);
+    });
+  }
+
+  // ===== Modal actions =====
+  const btnNova = document.getElementById("btnNovaTransacao");
+  const modal = document.getElementById("trxModal");
+  const closeBtn = document.getElementById("trxClose");
+  const cancelBtn = document.getElementById("trxCancel");
+  const form = document.getElementById("trxForm");
+
+  const inNome = document.getElementById("trxNome");
+  const inTipo = document.getElementById("trxTipo");
+  const inValor = document.getElementById("trxValor");
+  const inData = document.getElementById("trxData");
+  const inHora = document.getElementById("trxHora");
+
+  function openModal(){
+    if(!modal) return;
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+
+    // defaults: hoje e agora
+    const now = new Date();
+    inData.value = `${now.getFullYear()}-${pad2(now.getMonth()+1)}-${pad2(now.getDate())}`;
+    inHora.value = `${pad2(now.getHours())}:${pad2(now.getMinutes())}`;
+    inNome.focus();
+  }
+
+  function closeModal(){
+    if(!modal) return;
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    form.reset();
+  }
+
+  btnNova && btnNova.addEventListener("click", (e) => {
+    e.preventDefault();
+    openModal();
+  });
+
+  closeBtn && closeBtn.addEventListener("click", closeModal);
+  cancelBtn && cancelBtn.addEventListener("click", closeModal);
+
+  modal && modal.addEventListener("click", (e) => {
+    const target = e.target;
+    if(target && target.dataset && target.dataset.close === "1") closeModal();
+  });
+
+  form && form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const nome = (inNome.value || "").trim();
+    const tipo = inTipo.value;
+    const valor = Number(inValor.value);
+
+    if(!nome || !tipo || !Number.isFinite(valor)){
+      return;
+    }
+
+    const d = inData.value; // yyyy-mm-dd
+    const h = inHora.value; // hh:mm
+
+    // Labels pro layout (igual exemplo “Hoje 14:30” etc.)
+    const dataObj = new Date(d + "T" + (h || "00:00") + ":00");
+    const hoje = new Date();
+    const sameDay = dataObj.toDateString() === hoje.toDateString();
+    const dataLabel = sameDay ? "Hoje" : `${pad2(dataObj.getDate())}/${pad2(dataObj.getMonth()+1)}`;
+    const horaLabel = h;
+
+    const trx = {
+      id: generateId(),             // pronto pro banco
+      nome,
+      tipo,
+      valor,
+      dataISO: dataObj.toISOString(),// pronto pro banco
+      dataLabel,
+      horaLabel
+    };
+
+    // salva
+    const list = loadTransacoes();
+    list.push(trx);
+    saveTransacoes(list);
+
+    // renderiza no topo
+    if(recentesList){
+      const el = renderTransacaoItem(trx);
+      recentesList.prepend(el);
+    }
+
+    closeModal();
+  });
+
+  // Inicializa (carrega transações salvas)
+  renderRecentes();
+</script>
+
+<script>
+function logout(){
+  localStorage.clear();
+  window.location.href = "login.html";
+}
+</script>
+
   </body>
 </html>
