@@ -3178,3 +3178,43 @@ body {
   box-shadow: 0 0 18px rgba(216,169,40,0.35);
   transform: translateY(-1px);
 }
+
+/* ===== Menu ⋮ (kebab) ===== */
+.kebab-wrap{ position: relative; display:flex; justify-content:flex-end; }
+.kebab-menu{
+  position:absolute;
+  top: 26px;
+  right: 0;
+  min-width: 160px;
+  background: rgba(20, 26, 36, 0.98);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  display:none;
+  z-index: 50;
+}
+.kebab-menu.is-open{ display:block; }
+.kebab-menu button{
+  width:100%;
+  background: transparent;
+  border: 0;
+  color: #dbe6ff;
+  padding: 10px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align:left;
+  font-weight: 700;
+}
+.kebab-menu button:hover{
+  background: rgba(255,255,255,0.06);
+}
+.kebab-menu .danger{ color: #ff6b6b; }
+
+/* Dashboard: hover amarelo em QUALQUER linha do gerenciador */
+.table .row{ transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease; }
+.table .row:hover{
+  box-shadow: 0 0 0 1px rgba(216,169,40,.35), 0 16px 45px rgba(0,0,0,.35);
+  border-color: rgba(216,169,40,.25);
+  transform: translateY(-1px);
+}
